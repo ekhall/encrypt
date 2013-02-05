@@ -1,6 +1,8 @@
 #import "TasksViewController.h"
 
 #import "Task.h"
+#import <RNCryptor/RNEncryptor.h>
+#import <RNCryptor/RNDecryptor.h>
 
 @interface TasksViewController () <NSFetchedResultsControllerDelegate>
 @property NSFetchedResultsController *fetchedResultsController;
@@ -118,6 +120,20 @@
     NSString *text2 = @"Text field 2";
     textField.text = nil;
     [textField resignFirstResponder];
+    
+    NSData *data = [@"Data is a rocker" dataUsingEncoding:NSUTF8StringEncoding];
+    NSLog(@"U Data: (%@)", [self dataAsString:data]);
+    NSError *error;
+    NSData *encryptedData = [RNEncryptor encryptData:data
+                                        withSettings:kRNCryptorAES256Settings
+                                            password:kCryptPass
+                                               error:&error];
+    NSLog(@"Enc Data: (%@) (%@)", [encryptedData description], [self dataAsString:encryptedData]);
+    NSData *decryptedData = [RNDecryptor decryptData:encryptedData
+                                        withPassword:kCryptPass
+                                               error:&error];
+    NSLog(@"DeCode Data: (%@) (%@)", [decryptedData description], [self dataAsString:decryptedData]);
+
     
     [self.managedObjectContext performBlock:^{
         NSManagedObject *managedObject = [NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:self.managedObjectContext];
