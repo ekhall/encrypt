@@ -115,12 +115,14 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     NSString *text = [textField.text copy];
+    NSString *text2 = @"Text field 2";
     textField.text = nil;
     [textField resignFirstResponder];
     
     [self.managedObjectContext performBlock:^{
         NSManagedObject *managedObject = [NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:self.managedObjectContext];
         [managedObject setValue:text forKey:@"text"];
+        [managedObject setValue:text2 forKey:@"text2"];
         [self.managedObjectContext save:nil];
     }];
     

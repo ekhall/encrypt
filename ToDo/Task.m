@@ -2,7 +2,9 @@
 
 @implementation Task
 @dynamic text;
+@dynamic text2;
 @dynamic completedAt;
+@dynamic encryptedText;
 
 - (BOOL)isCompleted {
     return self.completedAt != nil;

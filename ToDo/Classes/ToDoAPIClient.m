@@ -1,8 +1,7 @@
 #import "ToDoAPIClient.h"
 #import "AFJSONRequestOperation.h"
 
-static NSString * const kToDoAPIBaseURLString = @"<#Enter Your Heroku App URL#>";
-#warning Enter Your Heroku APP URL, and Delete This Warning
+static NSString * const kToDoAPIBaseURLString = @"http://murmuring-atoll-4969.herokuapp.com/";
 
 @implementation ToDoAPIClient
 
